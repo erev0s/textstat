@@ -1,9 +1,7 @@
 extern crate textstat;
 
 use std::env;
-use std::process;
-use textstat::handler;
-
+use textstat::most_used;
 
 fn main() {
     let args: Vec<String> = env::args().collect();
@@ -13,9 +11,10 @@ fn main() {
     let filename: &String = &args[1];
     println!("Searching in file {}", filename);
 
-    if let Err(e) = textstat::handler(filename) {
-        println!("Application error: {}", e);
-        process::exit(1);
-    }
+    let contents: String = textstat::handler(filename);
+
+    most_used(&contents);
+
 }
+
 
